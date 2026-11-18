@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PlateWise.Common\PlateWise.Common.csproj" />
+  </ItemGroup>
+
 </Project>

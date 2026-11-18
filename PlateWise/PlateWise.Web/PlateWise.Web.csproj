@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PlateWise.Common\PlateWise.Common.csproj" />
+    <ProjectReference Include="..\PlateWise.Data\PlateWise.Data.csproj" />
+    <ProjectReference Include="..\PlateWise.Services\PlateWise.Services.csproj" />
+  </ItemGroup>
+
 </Project>
