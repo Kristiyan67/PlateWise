@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="PlateWise.Common/PlateWise.Common.csproj" />
+  <Project Path="PlateWise.Data/PlateWise.Data.csproj" />
+  <Project Path="PlateWise.Services/PlateWise.Services.csproj" />
+  <Project Path="PlateWise.Tests/PlateWise.Tests.csproj" />
+  <Project Path="PlateWise.Web/PlateWise.Web.csproj" />
+</Solution>
