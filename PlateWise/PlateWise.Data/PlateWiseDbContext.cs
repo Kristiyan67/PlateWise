@@ -14,6 +14,14 @@ namespace PlateWise.Data
         {
         }
 
+        public DbSet<Category> Categories => Set<Category>();
+
+        public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+
+        public DbSet<Recipe> Recipes => Set<Recipe>();
+
+        public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
