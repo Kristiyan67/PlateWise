@@ -10,5 +10,7 @@ namespace PlateWise.Data.Models
         public string DisplayName { get; set; } = string.Empty;
 
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+
+        public ICollection<Recipe> Recipes { get; set; } = new HashSet<Recipe>();
     }
 }
