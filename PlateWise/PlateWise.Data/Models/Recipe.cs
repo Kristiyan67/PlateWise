@@ -32,5 +32,9 @@ namespace PlateWise.Data.Models
         public ApplicationUser Author { get; set; } = null!;
 
         public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new HashSet<RecipeIngredient>();
+            
+        public ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
+
+        public ICollection<Favorite> Favorites { get; set; } = new HashSet<Favorite>();
     }
 }
