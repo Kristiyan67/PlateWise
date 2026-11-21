@@ -44,5 +44,26 @@ namespace PlateWise.Common.Constants
             public const double MinQuantity = 0.01;
             public const double MaxQuantity = 100000;
         }
+
+        public static class Review
+        {
+            public const int MinRating = 1;
+            public const int MaxRating = 5;
+
+            public const int CommentMinLength = 5;
+            public const int CommentMaxLength = 1000;
+        }
+
+        public static class MealPlan
+        {
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 80;
+        }
+
+        public static class MealPlanEntry
+        {
+            public const int MinServings = 1;
+            public const int MaxServings = 50;
+        }
     }
 }
