@@ -22,6 +22,14 @@ namespace PlateWise.Data
 
         public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
 
+        public DbSet<Review> Reviews => Set<Review>();
+
+        public DbSet<Favorite> Favorites => Set<Favorite>();
+
+        public DbSet<MealPlan> MealPlans => Set<MealPlan>();
+
+        public DbSet<MealPlanEntry> MealPlanEntries => Set<MealPlanEntry>();
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
