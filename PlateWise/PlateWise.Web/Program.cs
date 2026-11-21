@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PlateWise.Data;
 using PlateWise.Data.Models;
+using PlateWise.Web.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,5 +60,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+await app.MigrateAndSeedAsync();
 
 app.Run();
