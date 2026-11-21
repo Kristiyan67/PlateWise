@@ -258,6 +258,24 @@ namespace PlateWise.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("PlateWise.Data.Models.Favorite", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AddedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "RecipeId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Favorites");
+                });
+
             modelBuilder.Entity("PlateWise.Data.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
@@ -286,6 +304,74 @@ namespace PlateWise.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("PlateWise.Data.Models.MealPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MealPlans");
+                });
+
+            modelBuilder.Entity("PlateWise.Data.Models.MealPlanEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<int>("MealPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MealType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Servings")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("MealPlanId", "Date");
+
+                    b.ToTable("MealPlanEntries", t =>
+                        {
+                            t.HasCheckConstraint("CK_MealPlanEntries_Servings", "[Servings] >= 1 AND [Servings] <= 50");
+                        });
                 });
 
             modelBuilder.Entity("PlateWise.Data.Models.Recipe", b =>
@@ -373,6 +459,49 @@ namespace PlateWise.Data.Migrations
                     b.ToTable("RecipeIngredients");
                 });
 
+            modelBuilder.Entity("PlateWise.Data.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("RecipeId", "UserId")
+                        .IsUnique()
+                        .HasFilter("[IsDeleted] = 0");
+
+                    b.ToTable("Reviews", t =>
+                        {
+                            t.HasCheckConstraint("CK_Reviews_Rating", "[Rating] >= 1 AND [Rating] <= 5");
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -424,6 +553,55 @@ namespace PlateWise.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PlateWise.Data.Models.Favorite", b =>
+                {
+                    b.HasOne("PlateWise.Data.Models.Recipe", "Recipe")
+                        .WithMany("Favorites")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PlateWise.Data.Models.ApplicationUser", "User")
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PlateWise.Data.Models.MealPlan", b =>
+                {
+                    b.HasOne("PlateWise.Data.Models.ApplicationUser", "User")
+                        .WithMany("MealPlans")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PlateWise.Data.Models.MealPlanEntry", b =>
+                {
+                    b.HasOne("PlateWise.Data.Models.MealPlan", "MealPlan")
+                        .WithMany("Entries")
+                        .HasForeignKey("MealPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PlateWise.Data.Models.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("MealPlan");
+
+                    b.Navigation("Recipe");
+                });
+
             modelBuilder.Entity("PlateWise.Data.Models.Recipe", b =>
                 {
                     b.HasOne("PlateWise.Data.Models.ApplicationUser", "Author")
@@ -462,9 +640,34 @@ namespace PlateWise.Data.Migrations
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("PlateWise.Data.Models.Review", b =>
+                {
+                    b.HasOne("PlateWise.Data.Models.Recipe", "Recipe")
+                        .WithMany("Reviews")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PlateWise.Data.Models.ApplicationUser", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PlateWise.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Favorites");
+
+                    b.Navigation("MealPlans");
+
                     b.Navigation("Recipes");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("PlateWise.Data.Models.Category", b =>
@@ -477,9 +680,18 @@ namespace PlateWise.Data.Migrations
                     b.Navigation("RecipeIngredients");
                 });
 
+            modelBuilder.Entity("PlateWise.Data.Models.MealPlan", b =>
+                {
+                    b.Navigation("Entries");
+                });
+
             modelBuilder.Entity("PlateWise.Data.Models.Recipe", b =>
                 {
+                    b.Navigation("Favorites");
+
                     b.Navigation("RecipeIngredients");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
