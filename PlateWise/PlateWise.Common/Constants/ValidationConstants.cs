@@ -65,5 +65,16 @@ namespace PlateWise.Common.Constants
             public const int MinServings = 1;
             public const int MaxServings = 50;
         }
+
+        public static class User
+        {
+            public const int DisplayNameMinLength = 2;
+            public const int DisplayNameMaxLength = 50;
+
+            public const int EmailMaxLength = 256;
+
+            public const int PasswordMinLength = 8;
+            public const int PasswordMaxLength = 100;
+        }
     }
 }
