@@ -37,7 +37,26 @@ MealPlanEntry | Recipe assigned to a date, meal type and number of servings
 
 ## Validation & Security
 
+- Client-side validation (jQuery Validation), server-side validation (ModelState) and database constraints
+- Global AutoValidateAntiforgeryToken filter protects all POST requests against CSRF
+- Razor encodes all output by default, protecting against XSS
+- Passwords are hashed by ASP.NET Identity; account lockout after repeated failed logins
+- Login errors are generic, so registered emails can't be discovered
+- returnUrl is checked with Url.IsLocalUrl, preventing open redirects
+
 ## Seeding
+
+On startup the application applies pending migrations and seeds:
+
+- the roles Administrator and User
+- a demo administrator account, read from the Seed section of configuration
+
+Demo administrator (development only):
+
+Email | Password
+admin@platewise.com | Admin12345
+
+In production these values are supplied through environment variables, never from source control.
 
 ## Testing
 
