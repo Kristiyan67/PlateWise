@@ -8,6 +8,22 @@ A recipe sharing and weekly meal planning web application built with ASP.NET Cor
 
 ## Architecture
 
+Project | Responsibility
+
+PlateWise.Common | Enums, role names and validation constants shared by all layers
+PlateWise.Data | Entities, EF Core DbContext, Fluent API configurations, migrations, seeding
+PlateWise.Services | Business logic behind interfaces, plus the models services return
+PlateWise.Web | MVC controllers, Razor views, view models, Areas, SignalR hubs
+PlateWise.Tests | Unit tests for the service layer
+
+Dependencies point one way only: Web -> Services -> Data -> Common. Controllers stay thin and depend on service interfaces.
+
+### UI structure
+
+- _Layout defines the Styles and Scripts sections
+- Partial views: _Navbar, _Footer, _LoginPartial, _Notifications, _RecipeCard, _Pagination
+- Responsive Bootstrap 5 layout with a custom green theme in site.css
+
 ## Technologies
 
 ## Database Design
