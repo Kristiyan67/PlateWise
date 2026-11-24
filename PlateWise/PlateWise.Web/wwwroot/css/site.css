@@ -1,31 +1,87 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+:root {
+    --pw-primary: #2f7d4f;
+    --pw-primary-dark: #256340;
+    --pw-surface: #f7f5f0;
+    --bs-primary: #2f7d4f;
+    --bs-primary-rgb: 47, 125, 79;
+    --bs-link-color-rgb: 47, 125, 79;
+    --bs-link-hover-color-rgb: 37, 99, 64;
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: var(--pw-surface);
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.btn-primary {
+    --bs-btn-bg: var(--pw-primary);
+    --bs-btn-border-color: var(--pw-primary);
+    --bs-btn-hover-bg: var(--pw-primary-dark);
+    --bs-btn-hover-border-color: var(--pw-primary-dark);
+    --bs-btn-active-bg: var(--pw-primary-dark);
+    --bs-btn-active-border-color: var(--pw-primary-dark);
+    --bs-btn-disabled-bg: var(--pw-primary);
+    --bs-btn-disabled-border-color: var(--pw-primary);
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.navbar-brand {
+    font-weight: 700;
+    color: var(--pw-primary) !important;
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--pw-primary-dark) 0%, var(--pw-primary) 100%);
+    color: #fff;
+    border-radius: 1rem;
+}
+
+.hero-icon {
+    font-size: 8rem;
+    opacity: 0.85;
+}
+
+.feature-icon {
+    font-size: 2rem;
+    color: var(--pw-primary);
+}
+
+.recipe-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+    .recipe-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important;
+    }
+
+.recipe-card-image,
+.recipe-card-placeholder {
+    height: 180px;
+}
+
+.recipe-card-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.recipe-card-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e4ede6;
+    color: var(--pw-primary);
+    font-size: 3rem;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .recipe-card {
+        transition: none;
+    }
 }
