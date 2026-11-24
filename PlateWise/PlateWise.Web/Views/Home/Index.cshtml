@@ -1,8 +1,59 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero p-4 p-md-5 mb-5">
+    <div class="row align-items-center">
+        <div class="col-md-8 text-center text-md-start">
+            <h1 class="display-5 fw-bold">Cook more. Stress less.</h1>
+            <p class="lead mb-4">
+                Discover recipes, plan your week and let PlateWise build your shopping list.
+            </p>
+
+            @if (User.Identity?.IsAuthenticated != true)
+            {
+                <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
+                    <a class="btn btn-light btn-lg" asp-controller="Account" asp-action="Register">Get started</a>
+                    <a class="btn btn-outline-light btn-lg" asp-controller="Account" asp-action="Login">Log in</a>
+                </div>
+            }
+        </div>
+        <div class="col-md-4 d-none d-md-block text-center">
+            <i class="bi bi-egg-fried hero-icon" aria-hidden="true"></i>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="h4 text-center mb-4">Everything you need in one place</h2>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-search feature-icon" aria-hidden="true"></i>
+                    <h3 class="h5 mt-3">Discover</h3>
+                    <p class="text-muted mb-0">Search and filter recipes by category, difficulty and cooking time.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-calendar-week feature-icon" aria-hidden="true"></i>
+                    <h3 class="h5 mt-3">Plan</h3>
+                    <p class="text-muted mb-0">Build a weekly meal plan with breakfast, lunch, dinner and snacks.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-basket feature-icon" aria-hidden="true"></i>
+                    <h3 class="h5 mt-3">Shop</h3>
+                    <p class="text-muted mb-0">Get a shopping list with ingredient quantities added up automatically.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
