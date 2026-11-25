@@ -11,8 +11,4 @@
     <ProjectReference Include="..\PlateWise.Data\PlateWise.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Implementations\" />
-  </ItemGroup>
-
 </Project>
