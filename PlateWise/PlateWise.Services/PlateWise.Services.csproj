@@ -11,4 +11,10 @@
     <ProjectReference Include="..\PlateWise.Data\PlateWise.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Implementations\" />
+    <Folder Include="Models\Shared\" />
+  </ItemGroup>
+
 </Project>
